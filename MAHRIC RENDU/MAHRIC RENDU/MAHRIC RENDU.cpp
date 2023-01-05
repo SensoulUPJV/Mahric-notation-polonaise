@@ -51,12 +51,12 @@ int main() {
 
     // Lire l'expression à réduire
     string expression;
-    int expression_length = expression.length();
     cout << "Entrez l'expression à réduire : ";
     getline(cin, expression);
+    int length_expression = expression.length();
 
     // Réduire l'expression
-    for (int i = 0; i < expression_length; i++) {
+    for (int i = 0; i < length_expression; i++) {
         // Si c'est un opérande, ajouter à la pile
         if (expression[i] >= '0' && expression[i] <= '9')
             push(stack, expression[i] - '0');
