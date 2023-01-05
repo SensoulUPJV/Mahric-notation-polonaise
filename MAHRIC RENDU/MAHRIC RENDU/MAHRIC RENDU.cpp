@@ -56,7 +56,7 @@ int main() {
     int length_expression = expression.length();
 
     // Réduire l'expression
-    for (int i = 0; i < length_expression; i++) {
+    for (int i = 0; i < (int)expression.length(); i++) {
         // Si c'est un opérande, ajouter à la pile
         if (expression[i] >= '0' && expression[i] <= '9')
             push(stack, expression[i] - '0');
