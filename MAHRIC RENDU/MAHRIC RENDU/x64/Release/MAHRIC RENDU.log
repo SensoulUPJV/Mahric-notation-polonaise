@@ -1,0 +1,7 @@
+﻿  MAHRIC RENDU.cpp
+C:\Users\vitto\source\repos\MAHRIC RENDU\MAHRIC RENDU\MAHRIC RENDU.cpp(74,49): warning C4101: 'e' : variable locale non référencée
+  Génération de code en cours
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 145 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Fin de la génération du code
+  MAHRIC RENDU.vcxproj -> C:\Users\vitto\source\repos\MAHRIC RENDU\x64\Release\MAHRIC RENDU.exe
