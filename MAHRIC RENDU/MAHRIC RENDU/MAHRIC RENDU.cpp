@@ -22,7 +22,7 @@ double pop(Stack& stack) {
     return 0;
 }
 
-double peek(Stack& stack) {
+double peek(const Stack& stack) {
     if (stack.top >= 0) {
         return stack.data[stack.top];
     }
