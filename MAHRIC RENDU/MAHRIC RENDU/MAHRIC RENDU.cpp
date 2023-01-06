@@ -2,17 +2,19 @@
 #include <string>
 #include <sstream>
 #include <array>
+
 using namespace std;
-const int taillePile = 100;
 
 struct Stack {
+    static const int taillePile = 100;
     array<double, taillePile> data;
     int top;
 };
 
 void push(Stack& stack, double value) {
-    if (stack.top < taillePile - 1) {
-        stack.data[++stack.top] = value;
+    if (stack.top < stack.taillePile - 1) {
+        stack.top++;
+        stack.data[stack.top] = value;
     }
 }
 
@@ -34,32 +36,36 @@ bool isOperator(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-double calcul(char operation, double operand1, double operand2) {
+double calcul(char operation, double operande1, double operande2) {
     switch (operation) {
     case '+':
-        return operand1 + operand2;
+        return operande1 + operande2;
     case '-':
-        return operand1 - operand2;
+        return operande1 - operande2;
     case '*':
-        return operand1 * operand2;
+        return operande1 * operande2;
     case '/':
-        return operand1 / operand2;
+        return operande1 / operande2;
     default:
         return 0;
     }
 }
 
-int main() {
-    string input;
+stringstream initialise()
+{
+    string entree;
     cout << "Entrez un calcul sous forme de notation polonaise : ";
-    getline(std::cin, input);
+    getline(std::cin, entree);
+    stringstream entreeUtilisateur(entree);
+    return entreeUtilisateur;
+}
 
-    stringstream inputStream(input);
+int main() {
     string token;
     Stack stack;
     stack.top = -1;
-
-    while (inputStream >> token) {
+    stringstream entreeUtilisateur = initialise();
+    while (entreeUtilisateur >> token) {
         if (isOperator(token[0])) {
             double operand2 = pop(stack);
             double operand1 = pop(stack);
@@ -89,4 +95,3 @@ int main() {
     }
     return 0;
 }
-
