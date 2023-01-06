@@ -5,29 +5,29 @@
 
 using namespace std;
 
-struct Stack {
+struct Pile {
     int top;
     static const int taillePile = 100;
     array<double, taillePile> data;
 };
 
-void push(Stack& stack, double value) {
-    if (stack.top < stack.taillePile - 1) {
-        stack.top++;
-        stack.data[stack.top] = value;
+void push(Pile& pile, double value) {
+    if (pile.top < pile.taillePile - 1) {
+        pile.top++;
+        pile.data[pile.top] = value;
     }
 }
 
-double pop(Stack& stack) {
-    if (stack.top >= 0) {
-        return stack.data[stack.top--];
+double pop(Pile& pile) {
+    if (pile.top >= 0) {
+        return pile.data[pile.top--];
     }
     return 0;
 }
 
-double peek(const Stack& stack) {
-    if (stack.top >= 0) {
-        return stack.data[stack.top];
+double peek(const Pile& pile) {
+    if (pile.top >= 0) {
+        return pile.data[pile.top];
     }
     return 0;
 }
@@ -62,19 +62,19 @@ stringstream initialise()
 
 int main() {
     string token;
-    Stack stack;
-    stack.top = -1;
+    Pile pile;
+    pile.top = -1;
     stringstream entreeUtilisateur = initialise();
     while (entreeUtilisateur >> token) {
         if (isOperator(token[0])) {
-            if (stack.top < 1) {
+            if (pile.top < 1) {
                 cout << "Erreur: pas asser d'operandes pour l'operateur : " << token[0] << endl;
                 return 1;
             }
-            double operand2 = pop(stack);
-            double operand1 = pop(stack);
+            double operand2 = pop(pile);
+            double operand1 = pop(pile);
             double result = calcul(token[0], operand1, operand2);
-            push(stack, result);
+            push(pile, result);
             cout << operand1 << " " << token[0] << " " << operand2 << " = " << result << endl;
         }
         else {
@@ -86,16 +86,16 @@ int main() {
                 cout << "Entree invalide " << token << endl;
                 return 1;
             }
-            push(stack, value);
+            push(pile, value);
         }
     }
 
-    if (stack
+    if (pile
         .top == 0) {
-        cout << "Resultat : " << peek(stack) << endl;
+        cout << "Resultat : " << peek(pile) << endl;
     }
     else {
-        if (stack.top > 0) {
+        if (pile.top > 0) {
             cout << "Error: trop d'operandes" << endl;
         }
         else {
