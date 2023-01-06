@@ -1,16 +1,17 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <array>
 using namespace std;
-const int STACK_SIZE = 100;
+const int taillePile = 100;
 
 struct Stack {
-    double data[STACK_SIZE];
+    array<double, taillePile> data;
     int top;
 };
 
 void push(Stack& stack, double value) {
-    if (stack.top < STACK_SIZE - 1) {
+    if (stack.top < taillePile - 1) {
         stack.data[++stack.top] = value;
     }
 }
@@ -64,15 +65,15 @@ int main() {
             double operand1 = pop(stack);
             double result = calcul(token[0], operand1, operand2);
             push(stack, result);
-            cout << operand1 << " " << token[0] << " " << operand2 << " = " << result << std::endl;
+            cout << operand1 << " " << token[0] << " " << operand2 << " = " << result <<endl;
         }
         else {
             double value;
             try {
-                value = std::stod(token);
+                value = stod(token);
             }
-            catch (const std::invalid_argument& e) {
-                cout << "Entrée invalide " << token << std::endl;
+            catch (const invalid_argument& e) {
+                cout << "Entrée invalide " << token <<endl;
                 return 1;
             }
             push(stack, value);
@@ -80,11 +81,11 @@ int main() {
     }
 
     if (stack.top == 0) {
-        cout << "Resultat : " << peek(stack) << std::endl;
+        cout << "Resultat : " << peek(stack) << endl;
     }
     else {
         cout <<
-            "Calcul impossible." << std::endl;
+            "Calcul impossible." << endl;
     }
     return 0;
 }
