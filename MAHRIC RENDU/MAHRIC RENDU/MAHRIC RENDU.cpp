@@ -6,9 +6,9 @@
 using namespace std;
 
 struct Stack {
+    int top;
     static const int taillePile = 100;
     array<double, taillePile> data;
-    int top;
 };
 
 void push(Stack& stack, double value) {
@@ -67,11 +67,15 @@ int main() {
     stringstream entreeUtilisateur = initialise();
     while (entreeUtilisateur >> token) {
         if (isOperator(token[0])) {
+            if (stack.top < 1) {
+                cout << "Erreur: pas asser d'operandes pour l'operateur : " << token[0] << endl;
+                return 1;
+            }
             double operand2 = pop(stack);
             double operand1 = pop(stack);
             double result = calcul(token[0], operand1, operand2);
             push(stack, result);
-            cout << operand1 << " " << token[0] << " " << operand2 << " = " << result <<endl;
+            cout << operand1 << " " << token[0] << " " << operand2 << " = " << result << endl;
         }
         else {
             double value;
@@ -79,19 +83,24 @@ int main() {
                 value = stod(token);
             }
             catch (const invalid_argument& e) {
-                cout << "Entrée invalide " << token <<endl;
+                cout << "Entree invalide " << token << endl;
                 return 1;
             }
             push(stack, value);
         }
     }
 
-    if (stack.top == 0) {
+    if (stack
+        .top == 0) {
         cout << "Resultat : " << peek(stack) << endl;
     }
     else {
-        cout <<
-            "Calcul impossible." << endl;
+        if (stack.top > 0) {
+            cout << "Error: trop d'operandes" << endl;
+        }
+        else {
+            cout << "Erreur: pas asser d'operandes" << endl;
+        }
     }
     return 0;
 }
