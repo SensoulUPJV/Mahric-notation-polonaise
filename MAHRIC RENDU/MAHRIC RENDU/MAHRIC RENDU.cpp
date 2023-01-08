@@ -75,7 +75,7 @@ void affichage(Pile pile)
     }
 }
 
-Pile ifIsOperateur(Pile pile,string valeure)
+Pile ifIsOperateur(Pile pile,const string valeure)
 {
     if (pile.top < 1) {
         cout << "Erreur: pas asser d'operandes pour l'operateur : " << valeure[0] << endl;
@@ -89,7 +89,7 @@ Pile ifIsOperateur(Pile pile,string valeure)
     return pile;
 }
 
-Pile ifIsOperande(Pile pile, string valeure) {
+Pile ifIsOperande(Pile pile, const string valeure) {
     double operande;
     try {
         operande = stod(valeure);
