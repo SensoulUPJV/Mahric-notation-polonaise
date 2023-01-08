@@ -7,7 +7,7 @@ using namespace std;
 
 struct Pile {
     int top;
-    static const int taillePile = 100;
+    static const long taillePile = 100;
     array<double, taillePile> data;
 };
 
@@ -60,38 +60,9 @@ stringstream initialise()
     return entreeUtilisateur;
 }
 
-int main() {
-    string token;
-    Pile pile;
-    pile.top = -1;
-    stringstream entreeUtilisateur = initialise();
-    while (entreeUtilisateur >> token) {
-        if (isOperator(token[0])) {
-            if (pile.top < 1) {
-                cout << "Erreur: pas asser d'operandes pour l'operateur : " << token[0] << endl;
-                return 1;
-            }
-            double operand2 = pop(pile);
-            double operand1 = pop(pile);
-            double result = calcul(token[0], operand1, operand2);
-            push(pile, result);
-            cout << operand1 << " " << token[0] << " " << operand2 << " = " << result << endl;
-        }
-        else {
-            double value;
-            try {
-                value = stod(token);
-            }
-            catch (const invalid_argument& e) {
-                cout << "Entree invalide " << token << endl;
-                return 1;
-            }
-            push(pile, value);
-        }
-    }
-
-    if (pile
-        .top == 0) {
+void affichage(Pile pile)
+{
+    if (pile.top == 0) {
         cout << "Resultat : " << peek(pile) << endl;
     }
     else {
@@ -102,5 +73,47 @@ int main() {
             cout << "Erreur: pas asser d'operandes" << endl;
         }
     }
-    return 0;
+}
+
+Pile ifIsOperateur(Pile pile,string valeure)
+{
+    if (pile.top < 1) {
+        cout << "Erreur: pas asser d'operandes pour l'operateur : " << valeure[0] << endl;
+        exit(1);
+    }
+    double operande2 = pop(pile);
+    double operande1 = pop(pile);
+    double resultat = calcul(valeure[0], operande1, operande2);
+    push(pile, resultat);
+    cout << operande1 << " " << valeure[0] << " " << operande2 << " = " << resultat << endl;
+    return pile;
+}
+
+Pile ifIsOperande(Pile pile, string valeure) {
+    double operande;
+    try {
+        operande = stod(valeure);
+    }
+    catch (const invalid_argument& e) {
+        cout << "Entree invalide " << valeure << endl;
+        exit(1);
+    }
+    push(pile, operande);
+    return pile;
+}
+
+int main() {
+    string valeure;
+    Pile pile;
+    pile.top = -1;
+    stringstream entreeUtilisateur = initialise();
+    while (entreeUtilisateur >> valeure) {
+        if (isOperator(valeure[0])) {
+            pile = ifIsOperateur(pile, valeure);
+        }
+        else {
+            pile = ifIsOperande(pile, valeure);
+        }
+    }
+    affichage(pile);
 }
